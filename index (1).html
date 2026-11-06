@@ -1,0 +1,345 @@
+<title>Antso Services</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Concept: modern service storefront. Teal hero card with a mini ledger of real prices, service cards with price pills, monthly plans, one coral action color for WhatsApp. */
+:root {
+  --bg: #f4f7f6;
+  --surface: #ffffff;
+  --fg: #11242b;
+  --muted: #57696f;
+  --line: #d6e0de;
+  --brand: #0e6b62;
+  --brand-soft: #dff0ed;
+  --hero-bg: #0c4a45;
+  --hero-fg: #f2faf8;
+  --hero-muted: #b6d8d3;
+  --cta: #cf3f25;
+  --cta-fg: #ffffff;
+  --shadow: 0 1px 2px rgba(17,36,43,.06), 0 8px 24px rgba(17,36,43,.07);
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1a1f; --surface: #15262c; --fg: #e8f1ef; --muted: #9db1af; --line: #2b4146;
+    --brand: #55c4b6; --brand-soft: #173a3a; --hero-bg: #12403c; --hero-fg: #f2faf8; --hero-muted: #a9cfc9;
+    --cta: #ff7a5c; --cta-fg: #2a0d06; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1a1f; --surface: #15262c; --fg: #e8f1ef; --muted: #9db1af; --line: #2b4146;
+  --brand: #55c4b6; --brand-soft: #173a3a; --hero-bg: #12403c; --hero-fg: #f2faf8; --hero-muted: #a9cfc9;
+  --cta: #ff7a5c; --cta-fg: #2a0d06; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 96px;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); }
+.wrap { max-width: 1040px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.1; }
+a { color: var(--brand); }
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; border-radius: 6px; }
+
+/* header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 14px; }
+.brand { display: flex; align-items: center; gap: 12px; font-family: var(--font-display); text-decoration: none; color: var(--fg); }
+.logo { width: 44px; height: 44px; flex: 0 0 auto; }
+.brand-text { display: flex; flex-direction: column; line-height: 1; }
+.brand-name { font-weight: 800; font-size: 1.45rem; letter-spacing: -0.02em; }
+.brand-sub { font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--brand); margin-top: 5px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: 600 1rem var(--font-body); text-decoration: none; cursor: pointer;
+  background: var(--cta); color: var(--cta-fg); border: 2px solid var(--cta); padding: 12px 20px; border-radius: 999px;
+}
+.btn:hover { filter: brightness(1.07); }
+.btn.sm { padding: 8px 16px; font-size: 0.92rem; }
+.btn.ghost { background: transparent; color: var(--hero-fg); border-color: color-mix(in srgb, var(--hero-fg) 55%, transparent); }
+.btn.line { background: transparent; color: var(--brand); border-color: var(--brand); }
+.btn svg { width: 18px; height: 18px; flex: 0 0 auto; }
+
+/* hero */
+.hero { background: var(--hero-bg); color: var(--hero-fg); border-radius: 28px; padding: 28px 22px; display: grid; gap: 28px; margin-top: 6px; }
+.hero h1 { font-size: clamp(2.1rem, 8vw, 3.6rem); font-weight: 800; letter-spacing: -0.03em; }
+.hero p { color: var(--hero-muted); font-size: 1.08rem; max-width: 52ch; margin: 16px 0 0; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; padding: 0; list-style: none; }
+.chips li { font-family: var(--font-mono); font-size: 0.8rem; padding: 6px 12px; border-radius: 999px; background: color-mix(in srgb, var(--hero-fg) 12%, transparent); }
+.hero-card { background: var(--surface); color: var(--fg); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); align-self: center; }
+.hero-card h2 { font-family: var(--font-mono); font-weight: 500; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--brand); margin-bottom: 8px; }
+.led { display: flex; align-items: baseline; gap: 8px; padding-block: 9px; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+.led:last-of-type { border-bottom: 0; }
+.led span:first-child { min-width: 0; }
+.led i { flex: 1 1 12px; min-width: 12px; border-bottom: 2px dotted var(--line); align-self: baseline; transform: translateY(-4px); }
+.led b { font-family: var(--font-mono); font-weight: 500; font-size: 0.9rem; white-space: nowrap; }
+.hero-card small { display: block; margin-top: 8px; color: var(--muted); font-size: 0.8rem; }
+@media (min-width: 860px) { .hero { grid-template-columns: 1.25fr 1fr; padding: 44px 40px; } }
+
+/* sections */
+section { padding-top: 56px; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--brand); margin-bottom: 8px; }
+section > h2 { font-size: clamp(1.6rem, 5vw, 2.3rem); letter-spacing: -0.02em; }
+.lede { color: var(--muted); margin: 10px 0 0; max-width: 60ch; }
+.sub { font-family: var(--font-display); font-size: 1.15rem; margin: 30px 0 12px; }
+.grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .grid.three { grid-template-columns: repeat(3, 1fr); } }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0; box-shadow: var(--shadow); }
+.card .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; }
+.card .ic svg { width: 24px; height: 24px; }
+.card h3 { font-size: 1.15rem; letter-spacing: -0.01em; }
+.card p { margin: 0; color: var(--muted); font-size: 0.93rem; flex: 1; }
+.card .foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.price { font-family: var(--font-mono); font-weight: 500; font-size: 1rem; }
+.price i { font-style: normal; color: var(--muted); font-size: 0.78rem; }
+.card .ask { background: none; border: 0; padding: 4px 0; font: 600 0.92rem var(--font-body); color: var(--brand); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.plan .price { font-size: 1.5rem; font-family: var(--font-display); font-weight: 800; letter-spacing: -0.02em; }
+.plan .price i { font-family: var(--font-mono); font-weight: 400; }
+
+/* steps */
+.steps { display: grid; gap: 14px; margin: 22px 0 0; padding: 0; list-style: none; counter-reset: s; }
+@media (min-width: 760px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; min-width: 0; }
+.steps li::before { content: counter(s); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--brand); color: var(--hero-fg); font-family: var(--font-mono); margin-bottom: 12px; }
+.steps b { display: block; font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 4px; }
+.steps span { color: var(--muted); font-size: 0.94rem; }
+
+/* form */
+.formbox { display: grid; gap: 22px; margin-top: 22px; }
+@media (min-width: 860px) { .formbox { grid-template-columns: 1.2fr 1fr; align-items: start; } }
+form { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: grid; gap: 14px; box-shadow: var(--shadow); }
+label { display: grid; gap: 6px; font-weight: 600; font-size: 0.92rem; min-width: 0; }
+input, select, textarea { font: 400 1rem var(--font-body); color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; width: 100%; min-width: 0; }
+textarea { min-height: 100px; resize: vertical; }
+.status { font-size: 0.9rem; color: var(--muted); min-height: 1.4em; margin: 0; overflow-wrap: anywhere; }
+.contact { background: var(--hero-bg); color: var(--hero-fg); border-radius: 20px; padding: 22px; }
+.contact h3 { font-size: 1.3rem; }
+.contact p { color: var(--hero-muted); margin: 8px 0 0; }
+.contact .num { font-family: var(--font-mono); font-size: 1.5rem; color: var(--hero-fg); margin: 14px 0 4px; display: block; letter-spacing: 0.02em; }
+.contact .btn { margin-top: 16px; }
+
+footer { margin-top: 56px; padding-block: 24px 8px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.88rem; }
+
+/* floating whatsapp */
+.float { position: fixed; z-index: 30; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ledger" viewBox="0 0 24 24"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-sheet" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 9.5h17M9.5 9.5V20" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-shop" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9M4 9h16v11H4zM4 9c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-web" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 21h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 013 3L8 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5zM6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8.5c.2 3 2.5 5.6 5.7 6.4l1.2-1.4-2-1-1 .8c-.9-.4-1.7-1.2-2.1-2.1l.8-1-1-2z" fill="currentColor"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#haut" aria-label="Antso Services, accueil">
+      <svg class="logo" viewBox="0 0 48 48" role="img" aria-label="Logo Antso Services">
+        <rect x="1" y="1" width="46" height="46" rx="12" fill="var(--brand)"/>
+        <path d="M11 37 L24 10 L37 37" fill="none" stroke="var(--hero-fg)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M17 29 H31" fill="none" stroke="var(--hero-fg)" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M12 42.5 H36" fill="none" stroke="var(--hero-fg)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="1 3.5"/>
+      </svg>
+      <span class="brand-text"><span class="brand-name">Antso</span><span class="brand-sub">Services</span></span>
+    </a>
+    <a class="btn sm" href="https://wa.me/261381443415" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+  </header>
+
+  <div class="hero" id="haut">
+    <div>
+      <h1>Votre comptabilité et vos fichiers Excel, sans vous déplacer.</h1>
+      <p>Paie, déclarations IRSA, CNaPS et OSTIE, comptabilité au PCG Madagascar, tableaux de gestion et design simple. Tout se fait à distance, par WhatsApp et fichiers partagés.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://wa.me/261381443415" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Écrire sur WhatsApp</a>
+        <a class="btn ghost" href="#services">Voir les tarifs</a>
+      </div>
+      <ul class="chips">
+        <li>Réponse sous 24 h</li>
+        <li>100 % à distance</li>
+        <li>Mvola · Orange Money</li>
+      </ul>
+    </div>
+    <aside class="hero-card" aria-label="Aperçu des tarifs">
+      <h2>Tarifs courants</h2>
+      <div class="led"><span>Paie, IRSA, CNaPS, OSTIE</span><i></i><b>200 000 Ar</b></div>
+      <div class="led"><span>Fichier Excel prêt</span><i></i><b>50 000 Ar</b></div>
+      <div class="led"><span>Design simple</span><i></i><b>10 000 Ar</b></div>
+      <div class="led"><span>Cours en ligne</span><i></i><b>30 000 Ar/h</b></div>
+      <small>Tarifs indicatifs en Ariary, devis gratuit.</small>
+    </aside>
+  </div>
+
+  <section id="services">
+    <div class="eyebrow">Services</div>
+    <h2>Ce que je peux faire pour vous</h2>
+    <p class="lede">Chaque service est payé par Mvola ou Orange Money, avec la moitié à la commande.</p>
+
+    <h3 class="sub">Comptabilité et paie</h3>
+    <div class="grid" id="g1"></div>
+
+    <h3 class="sub">Excel, Power BI et gestion de commerce</h3>
+    <div class="grid three" id="g2"></div>
+
+    <h3 class="sub">Design, site web et cours</h3>
+    <div class="grid three" id="g3"></div>
+  </section>
+
+  <section id="forfaits">
+    <div class="eyebrow">Forfaits mensuels</div>
+    <h2>Une comptabilité suivie, chaque mois</h2>
+    <p class="lede">Pour les entreprises qui veulent confier leur comptabilité en continu, sans engagement compliqué.</p>
+    <div class="grid three" id="g4" style="margin-top:22px"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Déroulement</div>
+    <h2>Comment ça se passe</h2>
+    <ol class="steps">
+      <li><b>Vous décrivez votre besoin</b><span>Par WhatsApp ou avec le formulaire ci-dessous. Devis sous 24 h.</span></li>
+      <li><b>Vous versez l'acompte</b><span>La moitié du montant, par Mvola ou Orange Money. Le travail commence ensuite.</span></li>
+      <li><b>Je livre, vous réglez le solde</b><span>Fichiers livrés par WhatsApp ou dossier partagé, avec une explication si besoin.</span></li>
+    </ol>
+  </section>
+
+  <section id="commande">
+    <div class="eyebrow">Devis</div>
+    <h2>Demandez votre devis</h2>
+    <p class="lede">Choisissez un service et décrivez votre besoin en deux lignes. Le message est prêt à envoyer sur WhatsApp.</p>
+    <div class="formbox">
+      <form id="f" novalidate>
+        <label for="svc">Service <select id="svc"></select></label>
+        <label for="nom">Votre nom <input id="nom" type="text" autocomplete="name" placeholder="Prénom et nom"></label>
+        <label for="msg">Votre besoin <textarea id="msg" placeholder="Exemple : une boutique de 4 employés, paie à faire chaque fin de mois."></textarea></label>
+        <a class="btn" id="wa" href="#commande" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Envoyer sur WhatsApp</a>
+        <button class="btn line" id="copy" type="submit">Copier le message</button>
+        <p class="status" id="st" role="status"></p>
+      </form>
+      <div class="contact">
+        <h3>Contact direct</h3>
+        <p>WhatsApp et appels, tous les jours.</p>
+        <span class="num">038 14 434 15</span>
+        <a class="btn" href="https://wa.me/261381443415" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Ouvrir WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>Antso Services · Prestations à distance, partout à Madagascar. Tarifs indicatifs en Ariary, sujets à devis.</footer>
+</div>
+
+<a class="btn float" href="https://wa.me/261381443415" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+
+<script>
+(function () {
+  var WA_NUMBER = "261381443415";
+
+  var DATA = {
+    g1: [
+      { ic: "i-ledger", t: "Paie, IRSA, CNaPS, OSTIE", d: "Bulletins de paie du mois et déclarations prêtes à déposer.", p: "200 000 Ar", u: "" },
+      { ic: "i-clock", t: "Comptabilité en retard", d: "Saisie, rapprochement bancaire et bilan, au forfait.", p: "Sur devis", u: "" }
+    ],
+    g2: [
+      { ic: "i-sheet", t: "Fichier Excel prêt à l'emploi", d: "Stock, caisse, budget, paie ou facturation, prêt à utiliser.", p: "50 000 Ar", u: "" },
+      { ic: "i-chart", t: "Tableau Excel ou Power BI", d: "Adapté à votre activité, livré avec une courte explication.", p: "100 000 Ar", u: "" },
+      { ic: "i-shop", t: "Shoprianala, gestion de commerce", d: "Installation à distance, formation et maintenance.", p: "500 000 Ar", u: "" }
+    ],
+    g3: [
+      { ic: "i-pen", t: "Design graphique", d: "Affiche, visuel Facebook, carte de visite. Tarif à discuter pour un travail plus élaboré.", p: "10 000 Ar", u: "dès" },
+      { ic: "i-web", t: "Mini-site ou catalogue", d: "Une page claire avec vos produits et un bouton WhatsApp.", p: "150 000 Ar", u: "dès" },
+      { ic: "i-cap", t: "Cours en ligne", d: "Comptabilité, Excel ou guitare en visioconférence. Tarif à discuter selon les heures.", p: "30 000 Ar", u: "/heure" }
+    ],
+    g4: [
+      { ic: "i-chart", t: "Forfait Pilotage", d: "Tableau de bord mensuel de suivi de votre activité.", p: "250 000 Ar", u: "/mois", plan: 1 },
+      { ic: "i-ledger", t: "Forfait Essentiel", d: "Saisie comptable et déclarations mensuelles.", p: "350 000 Ar", u: "/mois", plan: 1 },
+      { ic: "i-shop", t: "Forfait Standard", d: "Comptabilité, paie jusqu'à 5 employés et bilan annuel.", p: "500 000 Ar", u: "/mois", plan: 1 }
+    ]
+  };
+
+  var svc = document.getElementById("svc");
+  var seen = {};
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;"); }
+
+  Object.keys(DATA).forEach(function (gid) {
+    var box = document.getElementById(gid);
+    box.innerHTML = DATA[gid].map(function (s) {
+      var price = s.p === "Sur devis"
+        ? '<span class="price">Sur devis</span>'
+        : '<span class="price">' + (s.u === "dès" ? '<i>dès</i> ' : '') + esc(s.p) + (s.u && s.u !== "dès" ? '<i>' + esc(s.u) + '</i>' : '') + '</span>';
+      return '<article class="card' + (s.plan ? ' plan' : '') + '">' +
+        '<div class="ic"><svg><use href="#' + s.ic + '"/></svg></div>' +
+        '<h3>' + esc(s.t) + '</h3><p>' + esc(s.d) + '</p>' +
+        '<div class="foot">' + price + '<button class="ask" type="button" data-s="' + esc(s.t) + '">Demander</button></div></article>';
+    }).join("");
+    DATA[gid].forEach(function (s) {
+      if (seen[s.t]) return;
+      seen[s.t] = 1;
+      var o = document.createElement("option");
+      o.textContent = s.t;
+      svc.appendChild(o);
+    });
+  });
+  var other = document.createElement("option");
+  other.textContent = "Autre demande";
+  svc.appendChild(other);
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest(".ask");
+    if (!b) return;
+    svc.value = b.getAttribute("data-s");
+    refresh();
+    var sec = document.getElementById("commande");
+    if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  var nom = document.getElementById("nom");
+  var msg = document.getElementById("msg");
+  var wa = document.getElementById("wa");
+  var st = document.getElementById("st");
+  var form = document.getElementById("f");
+
+  function build() {
+    var t = "Bonjour, je voudrais un devis pour : " + svc.value + ".";
+    var need = msg.value.trim();
+    var who = nom.value.trim();
+    if (need) t += "\nMon besoin : " + need;
+    if (who) t += "\nMon nom : " + who;
+    return t;
+  }
+  function refresh() {
+    wa.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(build());
+  }
+  [svc, nom, msg].forEach(function (el) {
+    el.addEventListener("input", refresh);
+    el.addEventListener("change", refresh);
+  });
+  refresh();
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var text = build();
+    function ok() { st.textContent = "Message copié. Collez-le dans WhatsApp."; }
+    function fallback() { st.textContent = "Copie automatique impossible ici. Copiez ce texte : " + text.replace(/\n/g, " "); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(ok, fallback);
+    } else {
+      fallback();
+    }
+  });
+})();
+</script>
